@@ -23,7 +23,7 @@ pipeline {
         stage('Docker Run') {
             steps {
                 sh 'docker rm -f demo-app || true'
-                sh 'docker run -d -p 8081:8081 --name demo-app demo-app:1.0'
+                sh 'docker run -d -p 8081:8080 --name demo-app demo-app:1.0'
             }
         }
     }
