@@ -9,6 +9,8 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - echo Compiling Java code with Maven...
+      - mvn clean install -DskipTests  # Yeh zaroori hai target/*.jar banane ke liye
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
   post_build:
@@ -16,8 +18,9 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $REPOSITORY_URI:latest
-      - echo Writing image definitions file...
+      - echo Writing image definitions file for ECS...
       - printf '[{"name":"logicworks-container","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
 
 artifacts:
-    files: imagedefinitions.json
+  files:
+    - imagedefinitions.json
