@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Logicworks Multi-Region Infrastructure for High Availability'
+
+Resources:
+  # Networking: VPC for Oregon Region
+  LogicworksVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.1.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: Logicworks-Oregon-VPC
+
+  # ECS Cluster in Oregon
+  LogicworksOregonCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: logicworks-app-cluster-backup
+
+Outputs:
+  ClusterName:
+    Value: !Ref LogicworksOregonCluster
+    Description: Name of the Oregon ECS Cluster
